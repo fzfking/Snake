@@ -11,15 +11,21 @@ namespace Sources.Presenters
         private ICell _cell;
         private EntitySprites _sprites;
 
-        public void Init(ICell cell)
+        public void Init(ICell cell, EntitySprites sprites)
         {
             _cell = cell;
-            transform.position = _cell.Position;
+            _sprites = sprites;
+            transform.position = (Vector2)_cell.Position;
             _cell.EntityChanged += ChangeEntityView;
         }
 
         private void ChangeEntityView()
         {
+            if (_cell.Entity == null)
+            {
+                EntityView.sprite = null;
+                return;
+            }
             EntityView.sprite = _sprites.GetSpriteByType(_cell.Entity.Type);
         }
 

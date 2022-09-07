@@ -7,7 +7,7 @@ namespace Sources.Models
     public class Cell : ICell
     {
         public event Action EntityChanged;
-        public Vector2 Position { get; }
+        public Vector2Int Position { get; }
 
         public IEntity Entity
         {
@@ -22,7 +22,7 @@ namespace Sources.Models
         private IEntity _entity;
 
 
-        public Cell(Vector2 position)
+        public Cell(Vector2Int position)
         {
             Position = position;
         }

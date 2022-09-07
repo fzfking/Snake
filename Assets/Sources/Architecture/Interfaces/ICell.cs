@@ -5,7 +5,7 @@ namespace Sources.Architecture.Interfaces
 {
     public interface ICell
     {
-        Vector2 Position { get; }
+        Vector2Int Position { get; }
         IEntity Entity { get; }
         bool TryToPutNewEntity(IEntity newEntity);
         event Action EntityChanged;

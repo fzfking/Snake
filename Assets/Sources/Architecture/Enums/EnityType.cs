@@ -2,8 +2,7 @@
 {
     public enum EntityType
     {
-        SnakeHead,
-        SnakeBody,
+        Snake,
         Apple
     }
 }
