@@ -67,7 +67,7 @@ namespace Sources.Architecture
             return isInsideBorders;
         }
 
-        public ICell GetCellByPosition(Vector2Int position)
+        private ICell GetCellByPosition(Vector2Int position)
         {
             if (!IsOutsideBorders(position))
             {

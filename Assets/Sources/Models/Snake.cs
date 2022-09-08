@@ -8,6 +8,7 @@ namespace Sources.Models
 {
     public class Snake
     {
+        public event Action AteApple; 
         public event Action<string, int> Died;
         private readonly List<SnakeSegment> _snakeSegments;
         private Direction CurrentDirection { get; set; }
@@ -56,13 +57,12 @@ namespace Sources.Models
                 switch (snakeHeadNewParentCell.Entity.Type)
                 {
                     case EntityType.Snake:
-                        //Die logic
                         Died?.Invoke("You ate your body.", _snakeSegments.Count-1);
                         break;
                     case EntityType.Apple:
-                        //Snake increase
                         CreateSnakeSegment(_snakeSegments[^1].ParentCell.Position);
                         snakeHeadNewParentCell.Entity.Remove();
+                        AteApple?.Invoke();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

@@ -1,49 +1,29 @@
 ﻿using System;
 using Sources.Architecture;
+using Sources.Architecture.Helpers;
 using UnityEngine;
 
 namespace Sources.Game
 {
     public class Input : MonoBehaviour
     {
-        public event Action SpacePressed;
         public event Action<Direction> DirectionChanged;
+        [SerializeField] private InputButtonsContainer InputButtonsContainer;
 
-        private void Update()
+        private void OnEnable()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
-            {
-                SpacePressed?.Invoke();
-            }
+            InputButtonsContainer.DirectionButtonClicked += InvokeDirectionChanged;
+        }
 
-            var horizontalAxis = UnityEngine.Input.GetAxis("Horizontal");
-            if (horizontalAxis != 0)
-            {
-                if (horizontalAxis > 0)
-                {
-                    DirectionChanged?.Invoke(Direction.Right);
-                }
-                else
-                {
-                    DirectionChanged?.Invoke(Direction.Left);
-                }
-            }
+        private void InvokeDirectionChanged(Direction direction)
+        {
+            DirectionChanged?.Invoke(direction);
+        }
 
-            var verticalAxis = UnityEngine.Input.GetAxis("Vertical");
-            if (verticalAxis != 0)
-            {
-                if (verticalAxis > 0)
-                {
-                    DirectionChanged?.Invoke(Direction.Up);
-                }
-                else
-                {
-                    DirectionChanged?.Invoke(Direction.Down);
-                }
-            }
-            {
-                
-            }
+        private void OnDisable()
+        {
+            InputButtonsContainer.DirectionButtonClicked -= InvokeDirectionChanged;
+
         }
     }
 }
