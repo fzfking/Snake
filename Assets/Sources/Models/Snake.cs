@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sources.Architecture;
+using Sources.Architecture.Enums;
 using Sources.Architecture.Interfaces;
 using UnityEngine;
 
@@ -30,22 +31,28 @@ namespace Sources.Models
 
         public void Move()
         {
-            bool isMovingSuccessful =_map.IsCellInDirectionExist(_snakeSegments[0].ParentCell, CurrentDirection);
-            if (!isMovingSuccessful)
+            bool isInsideBorders =_map.IsCellInDirectionExist(_snakeSegments[0].ParentCell, CurrentDirection);
+            if (!isInsideBorders)
             {
-                Died?.Invoke("You hit the wall.", _snakeSegments.Count-1);
+                Died?.Invoke("You hit the wall.", _snakeSegments.Count);
                 return;
             }
             
             var snakeHeadNewParentCell = _map.GetCellByDirection(_snakeSegments[0].ParentCell, CurrentDirection);
             CheckNextCellForEntity(snakeHeadNewParentCell);
-            for (int i = _snakeSegments.Count-1; i >= 1 ; i--)
+            RearrangeSegments(snakeHeadNewParentCell);
+        }
+
+        private void RearrangeSegments(ICell snakeHeadNewParentCell)
+        {
+            for (int i = _snakeSegments.Count - 1; i >= 1; i--)
             {
                 _snakeSegments[i].Remove();
                 var newParent = _snakeSegments[i - 1].ParentCell;
-                _snakeSegments[i-1].Remove();
+                _snakeSegments[i - 1].Remove();
                 _snakeSegments[i].SetParentCell(newParent);
             }
+
             _snakeSegments[0].Remove();
             _snakeSegments[0].SetParentCell(snakeHeadNewParentCell);
         }
@@ -57,7 +64,7 @@ namespace Sources.Models
                 switch (snakeHeadNewParentCell.Entity.Type)
                 {
                     case EntityType.Snake:
-                        Died?.Invoke("You ate your body.", _snakeSegments.Count-1);
+                        Died?.Invoke("You ate your body.", _snakeSegments.Count);
                         break;
                     case EntityType.Apple:
                         CreateSnakeSegment(_snakeSegments[^1].ParentCell.Position);

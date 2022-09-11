@@ -1,36 +1,35 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Sources.Architecture;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Slider))]
-public class MapSizeSlider : MonoBehaviour
+namespace Sources.Architecture.Helpers
 {
-    [SerializeField] private TextMeshProUGUI ValueView;
-    private Slider _slider;
-
-    private void OnEnable()
+    [RequireComponent(typeof(Slider))]
+    public class MapSizeSlider : MonoBehaviour
     {
-        _slider = GetComponent<Slider>();
-        _slider.onValueChanged.AddListener(UpdateValue);
-    }
+        [SerializeField] private TextMeshProUGUI ValueView;
+        private Slider _slider;
 
-    private void UpdateValue(float value)
-    {
-        ValueView.text = value.ToString("###.##");
-    }
+        private void OnEnable()
+        {
+            _slider = GetComponent<Slider>();
+            _slider.onValueChanged.AddListener(UpdateValue);
+        }
 
-    private void OnDisable()
-    {
-        _slider.onValueChanged.RemoveListener(UpdateValue);
-    }
+        private void UpdateValue(float value)
+        {
+            ValueView.text = value.ToString("###.##");
+        }
 
-    public void SaveSize()
-    {
-        var newSize = MapSize.CreateNew((int)_slider.value);
-        MapSize.Save(newSize);
+        private void OnDisable()
+        {
+            _slider.onValueChanged.RemoveListener(UpdateValue);
+        }
+
+        public void SaveSize()
+        {
+            var newSize = MapSize.CreateNew((int)_slider.value);
+            MapSize.Save(newSize);
+        }
     }
 }

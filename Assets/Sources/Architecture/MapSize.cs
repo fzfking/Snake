@@ -7,26 +7,21 @@ namespace Sources.Architecture
         public int Size { get; private set; }
         private static readonly string Name = "Map size";
 
-        private MapSize()
+        private MapSize(int size)
         {
-            
+            Size = size;
         }
+        
 
         public static MapSize CreateNew(int size)
         {
-            var newMapSize = new MapSize
-            {
-                Size = size
-            };
+            var newMapSize = new MapSize(size);
             return newMapSize;
         }
 
         public static MapSize Load()
         {
-            var newMapSize = new MapSize
-            {
-                Size = PlayerPrefs.GetInt(Name, 4)
-            };
+            var newMapSize = new MapSize(PlayerPrefs.GetInt(Name, 4));
             return newMapSize;
         }
 

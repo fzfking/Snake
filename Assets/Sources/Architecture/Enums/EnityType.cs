@@ -1,4 +1,4 @@
-﻿namespace Sources.Architecture
+﻿namespace Sources.Architecture.Enums
 {
     public enum EntityType
     {

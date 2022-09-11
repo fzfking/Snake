@@ -1,5 +1,6 @@
 ﻿using System;
 using Sources.Architecture;
+using Sources.Architecture.Enums;
 using Sources.Architecture.Helpers;
 using UnityEngine;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Sources.Architecture;
+using Sources.Architecture.Enums;
 using UnityEngine;
 
 namespace Sources.Game

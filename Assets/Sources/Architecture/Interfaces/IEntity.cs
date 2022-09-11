@@ -1,4 +1,5 @@
 ﻿using System;
+using Sources.Architecture.Enums;
 
 namespace Sources.Architecture.Interfaces
 {
